@@ -1,0 +1,11 @@
+.div h1{
+    color: azure;
+    margin-bottom: 50px;
+}
+
+.div {
+    align-items: center;
+    display: flex;
+    flex-direction: column; /* Change to column direction to stack items vertically */
+    justify-content: center;
+}

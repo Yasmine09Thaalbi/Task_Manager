@@ -1,0 +1,23 @@
+<div class="signup-container">
+      <h2>Sign Up</h2>
+      <form (ngSubmit)="onSubmit()">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" [(ngModel)]="firstname" required>
+      
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" [(ngModel)]="lastname" required>
+      
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" [(ngModel)]="username" required>
+      
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password" required>
+      
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" [(ngModel)]="email" required>
+      
+            <button type="submit">Sign Up</button>
+      </form>
+  
+
+</div>
