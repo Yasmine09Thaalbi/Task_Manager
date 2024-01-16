@@ -1,26 +1,39 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SignupService } from '../services/signup.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [SignupService]
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
-
+  constructor(private router: Router, private signupService: SignupService) {}
 
   onSubmit() {
-    // Handle form submission logic here
-    console.log('Form submitted:', this.username, this.password)
+    // Appeler la méthode de connexion du service
+    this.signupService.login(this.username, this.password).subscribe(
+      response => {
+        console.log('Réponse du serveur:', response);
+        // Gérer la réponse du serveur, par exemple, rediriger vers le tableau de bord
+        if (response && response.status === 200) {
+          this.router.navigate(['/signup']);
+        } else {
+          console.error('Échec de la connexion. Veuillez vérifier vos informations.');
+        }
+      },
+      error => {
+        console.error('Erreur lors de la connexion:', error);
+      }
+    );
   }
 
   goToSignup() {
     console.log('hello');
     this.router.navigate(['/signup']);
   }
-
 }
