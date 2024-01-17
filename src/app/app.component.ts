@@ -8,12 +8,12 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'task_manager';
-  isLoggedIn = false;
-  showdiv: boolean = true;
+  isLoggedIn = true; //mettre false si n'est pas loggedin
+  showdiv = true ; // true a remettre
+
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
-
-  
   login() {
     // Logique de connexion ici
     this.isLoggedIn = true;
@@ -30,8 +30,8 @@ export class AppComponent {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Check if the current route is 'login' or 'signup' and hide the h1 accordingly
-        this.showdiv = !['login', 'signup'].includes(this.activatedRoute.firstChild?.snapshot.routeConfig?.path as string);
+        // Check if the current route is 'login' or 'signup' or 'home' and hide the h1 accordingly
+        this.showdiv = !['login', 'signup','home'].includes(this.activatedRoute.firstChild?.snapshot.routeConfig?.path as string);
       }
     });
   }

@@ -1,0 +1,13 @@
+<article [ngClass]="'board ' + BoardInput.Type">
+    <header>
+      <h4>{{ BoardInput.Name }} <span>({{ BoardInput.Number }})</span></h4>
+    </header>
+    <div class="board-content">
+      <ul class="list">
+        <li class="el"*ngFor="let task of BoardInput.tasks">
+            <app-task [TaskInput]="task"></app-task>
+        </li>
+      </ul>
+    </div>
+</article>
+  

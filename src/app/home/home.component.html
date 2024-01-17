@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US" >
+    <head>
+        <meta charset="UTF-8" />
+        <title> Task </title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/stylesheet/min.css">
+
+		<meta name="keyword" content="" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<link rel="canonical" href="" />
+    </head>
+    <body>
+        <header id="main-header">
+            <div class="account">
+                <figure>
+                    <div class="avatar" style="background-color: #2b2d42;  box-shadow: none;">
+                        <img src="/assets/images/user.png"  class="w-100 h-100">
+                    </div>
+                    <figcaption>
+                        <h2 class="text-md">Mohammad Rahmani</h2>
+                    </figcaption>
+                </figure>
+            </div>
+        </header>
+
+        <section class="container-fluid no-padding">
+            <div class="row wrapper no-padding">
+                <div class="col-xl-1 col-sm-2">
+                    <nav class="menu-left">
+                        <ul class="list">
+                            <li>
+                                <a routerLink="/home" class="active">
+                                    <span class="icon flaticon-notepad-1"></span>
+                                    <span class="text">Tasks</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a  routerLink="/login"  >
+                                    <span class="icon flaticon-power"></span>
+                                    <span class="text">Exit</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-xl-11 col-sm-10">
+                    <div class="main-content">
+                        <header class="header-content">
+                            <ul class="list list-inline">
+                                <li>
+                                    <a>
+                                        <span class="state red"></span>
+                                        <span>Urgent</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="state yellow"></span>
+                                        <span>Normal</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="state green"></span>
+                                        <span>Low</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="action">
+                                <button class="btn btn-blue" (click)="addDefaultTask()">New Task<span class="flaticon-add"></span></button>
+                            </div>
+                        </header>
+                        <div class="dashboard">
+                            <div class="row">
+                              <div class="col-xl-3 col-sm-6" *ngFor="let b of boards">
+                                <app-board [BoardInput]="b"></app-board>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="/assets/javascript/min.js"></script>
+    </body>
+</html>

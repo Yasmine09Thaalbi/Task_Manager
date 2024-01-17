@@ -6,14 +6,20 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { HeaderComponent } from './header/header.component'; 
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { BoardComponent } from './board/board.component';
+import { TaskComponent } from './task/task.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent,
+    BoardComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
