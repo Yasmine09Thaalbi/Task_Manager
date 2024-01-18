@@ -9,7 +9,9 @@ import { SignupComponent } from './signup/signup.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { BoardComponent } from './board/board.component';
-import { TaskComponent } from './task/task.component'; 
+import { TaskComponent } from './task/task.component';
+import { TaskFormComponent } from './task-form/task-form.component';
+import { TaskDetailsComponent } from './task-details/task-details.component'; 
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { TaskComponent } from './task/task.component';
     HeaderComponent,
     HomeComponent,
     BoardComponent,
-    TaskComponent
+    TaskComponent,
+    TaskFormComponent,
+    TaskDetailsComponent
   ],
   imports: [
     BrowserModule,

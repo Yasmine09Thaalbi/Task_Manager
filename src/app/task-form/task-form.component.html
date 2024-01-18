@@ -1,0 +1,39 @@
+<div class="task-form">
+    <h2>Create a New Task</h2>
+  
+    <form (submit)="onSubmit()">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="task.title" required>
+  
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="task.description" required></textarea>
+  
+      <label for="dueDate">Due Date:</label>
+      <input type="date" id="dueDate" name="dueDate" [(ngModel)]="task.due_date">
+  
+      <label for="owner">Owner:</label>
+      <input type="text" id="owner" name="owner" [(ngModel)]="task.owner" required>
+  
+      <label for="priority">Priority:</label>
+      <select id="priority" name="priority" [(ngModel)]="task.priority">
+        <option value="Low">Low</option>
+        <option value="Normal">Normal</option>
+        <option value="Urgent">Urgent</option>
+      </select>
+  
+      <label for="status">Status:</label>
+      <input type="text" id="status" name="status" [(ngModel)]="task.status" readonly required>
+  
+      <label for="category">Category:</label>
+      <select id="category" name="category" [(ngModel)]="task.category">
+        <option value="Design">Design</option>
+        <option value="Development">Development</option>
+        <option value="Urgent">Testing/QA</option>
+      </select>
+  
+      <label for="attachments">Attachments:</label>
+      <input type="file" id="attachments" name="attachments" multiple (change)="onFileChange($event)">
+  
+      <button type="submit">Create Task</button>
+    </form>
+  </div>

@@ -1,4 +1,7 @@
-<div class="task" [ngClass]="TaskInput.Type">
+<div class="task" [ngClass]="{'green': TaskInput.Priority === 'Low',
+  'red': TaskInput.Priority === 'Urgent',
+  'yellow': TaskInput.Priority === 'Normal'
+}"  (click)="navigateToTaskDetails()">
     <header>
       <h3>{{ TaskInput.title }}</h3>
       <span class="icon flaticon-link"></span>

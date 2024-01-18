@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,20 +10,24 @@ export class HomeComponent implements OnInit {
 
 
   boards=[
-    {Name : "Backlog" , Number: 7 , Type: "red" , tasks: [{ title: "Splash screen", description: "The book itself is surprisingly thin and it's not really a book perse it's a compilation." , Type : " green"}]},
-    {Name : "In progress " , Number:2 ,Type: "yellow" , tasks: [{ title: "Develop Feature", description: "Description." , Type : "red" }] },
+    {Name : "Backlog" , Number: 7 , Type: "red" , tasks: [{ title: "Splash screen", description: "The book itself is surprisingly thin and it's not really a book perse it's a compilation." , due_date:null, Priority : "Low" , owner:"Mohamed" , Category:"Design"}]},
+    {Name : "In progress " , Number:2 ,Type: "yellow" , tasks: [{ title: "Develop Feature", description: "Description." ,due_date:null,  Priority : "Urgent",  owner:"Mohamed", Category:"Design" }] },
     {Name : "Review " , Number:3 , Type: "green" ,  tasks: []},
     {Name : "Done " , Number:42 , Type: "blue" ,  tasks: []},
   ]; 
 
-  constructor() { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
   }
 
   addDefaultTask() {
-    const defaultTask = { title: "Default Task", description: "This is a default task that can be modified later.", Type: "green" };
-    this.boards[0].tasks.push(defaultTask); 
+      this.router.navigate(['/task-form']);
+  }
+
+  addTaskToBacklog(newTask: any) {
+    // Add the new task to the 'Backlog' board
+    this.boards[0].tasks.push(newTask);
   }
 
 }

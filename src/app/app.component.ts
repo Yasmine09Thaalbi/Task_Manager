@@ -30,8 +30,8 @@ export class AppComponent {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Check if the current route is 'login' or 'signup' or 'home' and hide the h1 accordingly
-        this.showdiv = !['login', 'signup','home'].includes(this.activatedRoute.firstChild?.snapshot.routeConfig?.path as string);
+        // Check if the current route is 'login' or 'signup' or 'home' and hide the div accordingly
+        this.showdiv = !['login', 'signup','home','task-form','task-details'].includes(this.activatedRoute.firstChild?.snapshot.routeConfig?.path as string);
       }
     });
   }
