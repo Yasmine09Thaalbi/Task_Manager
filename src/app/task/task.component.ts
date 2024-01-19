@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TaskDetailService } from '../services/task-detail.service';
 
 
 @Component({
@@ -10,12 +11,13 @@ import { Router } from '@angular/router';
 export class TaskComponent implements OnInit {
   @Input() TaskInput: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router , private taskDetailService: TaskDetailService) {}
 
   ngOnInit() {
   }
 
   navigateToTaskDetails(){
-  this.router.navigate(['/task-details'], { queryParams: { task: this.TaskInput } });
+    this.taskDetailService.setTask(this.TaskInput);
+    this.router.navigate(['/task-details']);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-home',
@@ -11,29 +11,89 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   username = '';
-  boards=[
-    {Name : "Backlog" , Number: 7 , Type: "red" , tasks: [{ title: "Splash screen", description: "The book itself is surprisingly thin and it's not really a book perse it's a compilation." , due_date:null, Priority : "Low" , owner:"Mohamed" , Category:"Design"}]},
-    {Name : "In progress " , Number:2 ,Type: "yellow" , tasks: [{ title: "Develop Feature", description: "Description." ,due_date:null,  Priority : "Urgent",  owner:"Mohamed", Category:"Design" }] },
-    {Name : "Review " , Number:3 , Type: "green" ,  tasks: []},
-    {Name : "Done " , Number:42 , Type: "blue" ,  tasks: []},
+  boards = [
+    { Name: "Backlog", Type: "red", tasks: [] },
+    { Name: "In progress", Type: "yellow", tasks: [] },
+    { Name: "Review", Type: "green", tasks: [] },
+    { Name: "Done", Type: "blue", tasks: [] },
   ]; 
 
-  constructor(private router: Router,private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private taskService: TaskService
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       const username = params['username'];
       this.username = username;
+      this.fetchTasks();
     });
   }
 
-  addDefaultTask() {
-      this.router.navigate(['/task-form']);
+  fetchTasks() {
+    this.taskService.getTasks().subscribe(
+      (tasks: any) => {
+        this.boards = this.processTasks(tasks);
+      },
+      (error) => {
+        console.error('Error fetching tasks:', error);
+      }
+    );
   }
 
-  addTaskToBacklog(newTask: any) {
-    // Add the new task to the 'Backlog' board
-    this.boards[0].tasks.push(newTask);
+  processTasks(tasks: any[]): any[] {
+    const processedBoards = [];
+  
+    const groupedTasks = tasks.reduce((groups, task) => {
+      const status = task.status || 'Backlog';
+  
+      if (!groups[status]) {
+        groups[status] = [];
+      }
+      groups[status].push(task);
+  
+      return groups;
+    }, {});
+  
+    for (const status in groupedTasks) {
+      if (groupedTasks.hasOwnProperty(status)) {
+        let type = 'yellow'; 
+  
+        switch (status) {
+          case 'Done':
+            type = 'blue';
+            break;
+          case 'Review':
+            type = 'green';
+            break;
+          case 'In progress':
+            type = 'yellow';
+            break;
+          case 'Backlog':
+            type = 'red';
+            break;
+          default:
+            break;
+        }
+  
+        const board = {
+          Name: status,
+          Number: groupedTasks[status].length,
+          Type: type,
+          tasks: groupedTasks[status]
+        };
+  
+        processedBoards.push(board);
+      }
+    }
+  
+    return processedBoards;
+  }
+
+  addDefaultTask() {
+    this.router.navigate(['/task-form']);
   }
 
 }

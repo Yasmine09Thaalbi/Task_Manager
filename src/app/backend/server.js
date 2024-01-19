@@ -54,6 +54,56 @@ app.post('/api/tasks' , cors(), upload.array('attachments', 5), async (req, res)
   }
 });
 
+app.get('/api/tasks', cors(), async (req, res) => {
+  try {
+    const tasks = await TaskModel.find();
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'Error fetching tasks', detailedError: error.message });
+  }
+});
+
+app.delete('/api/tasks/:title', cors(), async (req, res) => {
+  const taskTitle = req.params.title;
+  console.log(taskTitle);
+  try {
+    const deletedTask = await TaskModel.findOneAndDelete({ title: taskTitle }); 
+    console.log(deletedTask);
+    if (!deletedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+    res.status(200).json({ message: 'Task deleted successfully', deletedTask });
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.put('/api/tasks/:title', cors(), async (req, res) => {
+  const taskTitle = req.params.title;
+  const newStatus = req.body.status;
+
+  try {
+    const updatedTask = await TaskModel.findOneAndUpdate(
+      { title: taskTitle },
+      { $set: { status: newStatus } },
+      { new: true }
+    );
+
+    if (!updatedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.status(200).json({ message: 'Task status updated successfully', updatedTask });
+  } catch (error) {
+    console.error('Error updating task status:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
 
 app.use(cors());
   

@@ -13,6 +13,7 @@ import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskDetailsComponent } from './task-details/task-details.component'; 
 
+
 @NgModule({
   declarations: [
     AppComponent,

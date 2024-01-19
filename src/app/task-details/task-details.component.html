@@ -1,24 +1,23 @@
 <div *ngIf="task" class="task-details">
     <h2>{{ task.title }}</h2>
     <p><strong>Description:</strong> {{ task.description }}</p>
-    <p><strong>Priority:</strong> {{ task.Priority }}</p>
+    <p><strong>Priority:</strong> {{ task.priority }}</p> 
     <p><strong>Due_date:</strong> {{ task.due_date }}</p>
     <p><strong>Owner:</strong> {{ task.owner }}</p>
-    <p><strong>Category:</strong> {{ task.Category }}</p>
-    <p><strong>Attachments:</strong> {{ task.Attachments }}</p>
-
-    <p><strong>Status:</strong><select>
-        <option value="In Progress">In Progress</option>
-        <option value="Review">Review</option>
-        <option value="Done">Done</option>
-      </select>
+    <p><strong>Category:</strong> {{ task.category }}</p> 
+    <p><strong>Attachments:</strong> {{ task.attachments }}</p> 
+    <p><strong>Status:</strong> {{ task.status }}</p> 
+    <p><strong>Status cible:</strong>
+        <select [(ngModel)]="newStatus" >
+            <option [value]="'In Progress'">In Progress</option>
+            <option [value]="'Review'">Review</option>
+            <option [value]="'Done'">Done</option>
+          </select>
     </p> 
-  
 
-  
     <button class="button1" (click)="goBack()">Go Back</button>
-    <button class="button2" >Delete Task</button>
-    <button class="button3" >Change Status</button>
+    <button class="button2" (click)="deleteTask()">Delete Task</button>
+    <button class="button3" (click)="changeStatus()">Change Status</button>
 </div>
   
 <div *ngIf="!task">
