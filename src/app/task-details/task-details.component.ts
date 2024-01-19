@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 })
 
 export class TaskDetailsComponent implements OnInit {
-  task: any | null = null; // Task object received from the route state
+  task: any | null = null; 
 
   constructor(private route: ActivatedRoute, private location: Location) {}
 
@@ -18,13 +18,12 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Get the task object from the route state
+    
     this.route.queryParams.subscribe(params => {
       if (params && params['task']) {
         this.task = params['task'];
         console.log('Task:', this.task);
-        // Display task details based on this.task
-        // You may need to adjust the code based on your task data structure
+        
       }
     });
   }

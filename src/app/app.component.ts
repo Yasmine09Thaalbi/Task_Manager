@@ -34,9 +34,7 @@ export class AppComponent {
         } else if (isHomePage && this.isLoggedIn) {
           this.isLoggedIn = false;
           this.showdiv = false;
-        } else {
-          this.showdiv = true;
-        }
+        } 
       }
     });
   }

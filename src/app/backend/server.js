@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
 const cors = require('cors');
+const multer = require('multer');
 app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/projetweb', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -13,11 +14,48 @@ db.once('open', () => {
   console.log('Connecté à MongoDB');
 });
 
-app.use(cors({
-    origin: 'http://localhost:4200',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header'],
-  }));
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+const taskSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  due_date: Date,
+  owner: String,
+  priority: String,
+  status: String,
+  category: String,
+  attachments: [String], 
+});
+
+const TaskModel = mongoose.model('Task', taskSchema);
+
+app.post('/api/tasks' , cors(), upload.array('attachments', 5), async (req, res) => {
+  console.log('Files:', req.files);
+  try {
+    const taskData = req.body;
+    taskData.attachments = req.files.map(file => file.path);
+
+    const newTask = new TaskModel(taskData);
+    await newTask.save();
+
+    res.status(201).json({ message: 'Task created successfully', task: newTask });
+  } catch (error) {
+    console.error('Error creating task:', error);
+    res.status(500).json({ error: 'Error creating task', detailedError: error.message });
+  }
+});
+
+
+app.use(cors());
   
 
 const userSchema = new mongoose.Schema({
