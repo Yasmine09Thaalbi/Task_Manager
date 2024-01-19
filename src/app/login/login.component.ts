@@ -15,13 +15,11 @@ export class LoginComponent {
   constructor(private router: Router, private signupService: SignupService) {}
 
   onSubmit() {
-    // Appeler la méthode de connexion du service
     this.signupService.login(this.username, this.password).subscribe(
       response => {
         console.log('Réponse du serveur:', response);
-        // Gérer la réponse du serveur, par exemple, rediriger vers le tableau de bord
         if (response && response.status === 200) {
-          this.router.navigate(['/signup']);
+          this.router.navigate(['/home', this.username]);
         } else {
           console.error('Échec de la connexion. Veuillez vérifier vos informations.');
         }

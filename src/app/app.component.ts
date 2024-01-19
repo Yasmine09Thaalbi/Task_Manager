@@ -8,32 +8,36 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'task_manager';
-  isLoggedIn = true; //mettre false si n'est pas loggedin
-  showdiv = true ; // true a remettre
-
+  isLoggedIn = true;
+  showdiv = true;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   login() {
-    // Logique de connexion ici
     this.isLoggedIn = true;
-
+    this.showdiv = true;
   }
 
-  // Fonction pour simuler la déconnexion
   logout() {
-    // Logique de déconnexion ici
     this.isLoggedIn = false;
+    this.showdiv = false;
   }
-
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Check if the current route is 'login' or 'signup' or 'home' and hide the div accordingly
-        this.showdiv = !['login', 'signup','home','task-form','task-details'].includes(this.activatedRoute.firstChild?.snapshot.routeConfig?.path as string);
+        const isHomePage = this.activatedRoute.firstChild?.snapshot.routeConfig?.path === 'home/:username';
+        const isLoginPage = this.activatedRoute.firstChild?.snapshot.routeConfig?.path === 'login';
+        const isSignupPage = this.activatedRoute.firstChild?.snapshot.routeConfig?.path === 'signup';
+        if ((isLoginPage || isSignupPage) && this.isLoggedIn) {
+          this.showdiv = false;
+        } else if (isHomePage && this.isLoggedIn) {
+          this.isLoggedIn = false;
+          this.showdiv = false;
+        } else {
+          this.showdiv = true;
+        }
       }
     });
   }
 }
-

@@ -9,7 +9,7 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home/:username', component: HomeComponent },
   {path: 'task-form', component: TaskFormComponent },
   { path: 'task-details', component: TaskDetailsComponent },
 ];

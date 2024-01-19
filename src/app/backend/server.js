@@ -57,15 +57,10 @@ app.post('/login', async (req, res) => {
       if (!username || !password) {
         throw new Error('Nom d\'utilisateur et mot de passe requis.');
       }
-  
-      // Votre logique d'authentification ici (par exemple, vérification dans la base de données)
       const user = await UserModel.findOne({ username, password });
-      
       if (user) {
-        // Utilisateur trouvé, renvoyer une réponse réussie
         res.status(200).json({ status: 200, message: 'Connexion réussie !' });
       } else {
-        // Utilisateur non trouvé, renvoyer une réponse d'échec
         res.status(401).json({ status: 401, error: 'Nom d\'utilisateur ou mot de passe incorrect.' });
       }
     } catch (error) {
